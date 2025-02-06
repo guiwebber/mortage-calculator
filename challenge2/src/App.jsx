@@ -9,7 +9,19 @@ function App() {
   const [rate, setRate] = useState("");
   const [monthlyPayment, setMonthlyPayment] = useState(null);
   const [totalPayment, setTotalPayment] = useState(null);
-
+  const formatNumber = (num) => {
+    // Limitar a 5 casas decimais
+    let formattedNum = num
+      .toFixed(5) // Limita a 5 casas decimais
+      .replace(".", ","); // Substitui o ponto por vírgula para o separador decimal
+    
+    // Adiciona o ponto como separador de milhar antes da vírgula
+    formattedNum = formattedNum.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  
+    return formattedNum;
+  };
+  
+  
   const calculateMortgage = () => {
     const P = parseFloat(amount);
     const r = parseFloat(rate) / 100 / 12;
@@ -17,9 +29,14 @@ function App() {
 
     if (!P || !r || !n) return;
 
+    // Cálculo do pagamento mensal
     const M = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    setMonthlyPayment(M.toFixed(5));
-    setTotalPayment((M * n).toFixed(5));
+    
+    // Total a pagar durante o período do empréstimo
+    const total = M * n;
+
+    setMonthlyPayment(formatNumber(M));
+    setTotalPayment(formatNumber(total));
   };
 
   return (
