@@ -11,10 +11,17 @@ function App() {
   const [totalPayment, setTotalPayment] = useState(null);
   const [errors, setErrors] = useState({});
   const [mortgageType, setMortgageType] = useState("");
-
   const formatNumber = (num) => {
-    let formattedNum = num.toFixed(2).replace(".", ",");
-    return formattedNum.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    let formattedNum = num.toFixed(5); // Garante 5 casas decimais sem arredondar
+
+    let moreFormat = formattedNum.replace(".", ",");
+
+    let [integerPart, decimalPart] = moreFormat.split(",");
+
+    return `${integerPart}.${decimalPart.slice(0, 3)},${decimalPart.slice(
+      3,
+      5
+    )}`;
   };
 
   const validateFields = () => {
@@ -163,26 +170,41 @@ function App() {
           </button>
         </div>
         <div className="right">
-          <div className="text">
-            {monthlyPayment && totalPayment ? (
-              <div className="showingResults">
-                <h3>Results</h3>
-                <p>Monthly Payment: €{monthlyPayment}</p>
-                <p>Total Repayment: €{totalPayment}</p>
-              </div>
-            ) : (
-              <>
-                <div className="divImg">
-                  <img src={img} alt="" />
-                </div>
-                <h3>Results shown here</h3>
-                <p>
-                  Complete the form and click "calculate repayments" to see your
-                  results.
+          {monthlyPayment && totalPayment ? (
+            <div className="showingResults">
+              <div className="textResults">
+                <h2>Your Results</h2>
+                <p className="textsOpacity">
+                  Your results are shown below based ont he information you
+                  provided. To adjust the results, edit the form and click
+                  "calculate repayments" again.
                 </p>
-              </>
-            )}
-          </div>
+              </div>
+              <div className="results">
+                <div className="topDiv">
+                  <p className="textsOpacity">Your monthly repayments</p>
+                  <h1 className="monthlyResult">£{monthlyPayment}</h1>
+                </div>
+                <div className="bottomDiv">
+                  <p className="textsOpacity">
+                    Total you'll repay over the term
+                  </p>
+                  <h4> £{totalPayment}</h4>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="preShow">
+              <div className="divImg">
+                <img src={img} alt="" />
+              </div>
+              <h3>Results shown here</h3>
+              <p className="textsOpacity">
+                Complete the form and click "calculate repayments" to see what
+                your monthly repayments would be.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

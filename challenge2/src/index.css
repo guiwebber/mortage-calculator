@@ -51,7 +51,7 @@ html, body {
 
 }
 
-.right p {
+.right .titleInput {
   color: #acadad;
   font-size: 0.8rem;
   margin: 10px 15px; 
@@ -205,7 +205,64 @@ html, body {
   font-size: 12px;
   margin: 0 0 0 10px;
 }
+.results {
+  width: 90%;
+  height: 250px;
+  background-color: #0e2431;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 10px;
+  border-top: 3px solid #d4d532;
+}
 
 .showingResults {
-  border: 1px solid red;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.textResults {
+  text-align: justify;
+  width: 90%;
+}
+.textResults h2 {
+  margin: 10px 0;
+}
+.textsOpacity {
+  color: #acadad;
+  font-size: 0.8rem;
+  margin: 0px 5px;
+}
+
+.monthlyResult {
+  color: #d4d532;
+  font-size: 3rem;
+}
+
+
+.topDiv, .bottomDiv {
+  width: 90%;
+}
+.topDiv {
+  padding: 0px 0 20px 0;
+}
+
+.bottomDiv {
+  border-top: 1px solid #8d8d8d;
+  padding: 20px 0 20px 0;
+}
+
+.bottomDiv h4 {
+  padding: 10px 5px;
+}
+.preShow {
+  width: 85%;
+}
+.preShow  h3{
+
+  margin-bottom: 15px;
 }
