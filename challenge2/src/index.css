@@ -46,8 +46,9 @@ html, body {
   text-align: center;
   color: #FFF;
 }
-.right .divImg img {
-  width: 80%;
+ .divImg img {
+  width: 45%;
+
 }
 
 .right p {
@@ -80,7 +81,7 @@ html, body {
 
 .divRelative {
   position: relative;
-  margin: 10px;
+  margin: 10px 10px 10px 10px;
   width: 94%;
   display: flex;
   align-items: center;
@@ -122,10 +123,13 @@ html, body {
 }
 .halfDiv {
   width: 47%;
-  
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .divRelative .halfInput {
-  padding: 5px;
+  padding-left: 10px;
 }
 
 .titleInput {
@@ -152,7 +156,7 @@ html, body {
 
 .label {
   border: 1px solid hsl(202, 55%, 16%);
-  padding: 7px 15px;
+  padding: 7px 10px;
   border-radius: 5px;
   font-weight: bold;
 }
@@ -176,6 +180,8 @@ html, body {
   position: absolute;
   width: 300px;
   bottom: 20px;
+  cursor: pointer;
+  left: 30px;
 }
 
 .btnCalc img {
@@ -183,6 +189,7 @@ html, body {
 }
 .error-input {
   border: 2px solid rgb(228, 14, 14);
+  border-radius: 5px;
   background-color: #ffe6e6;
 }
 
@@ -190,10 +197,15 @@ html, body {
   background-color: rgb(228, 14, 14);
   font-weight: bold;
   color: #FFF;
+  border-radius: 5px;
 }
 
 .error-message {
   color: rgb(228, 14, 14);
   font-size: 12px;
   margin: 0 0 0 10px;
+}
+
+.showingResults {
+  border: 1px solid red;
 }

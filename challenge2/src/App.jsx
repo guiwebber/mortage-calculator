@@ -163,18 +163,18 @@ function App() {
           </button>
         </div>
         <div className="right">
-          <div className="divImg">
-            <img src={img} alt="" />
-          </div>
           <div className="text">
             {monthlyPayment && totalPayment ? (
-              <>
+              <div className="showingResults">
                 <h3>Results</h3>
                 <p>Monthly Payment: €{monthlyPayment}</p>
                 <p>Total Repayment: €{totalPayment}</p>
-              </>
+              </div>
             ) : (
               <>
+                <div className="divImg">
+                  <img src={img} alt="" />
+                </div>
                 <h3>Results shown here</h3>
                 <p>
                   Complete the form and click "calculate repayments" to see your
