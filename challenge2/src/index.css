@@ -81,10 +81,11 @@ html, body {
 
 .divRelative {
   position: relative;
-  margin: 10px 10px 10px 10px;
+  margin: 10px;
   width: 94%;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .symbol {
@@ -178,7 +179,7 @@ html, body {
   width: 70%;
   margin-top: 30px;
   position: absolute;
-  width: 300px;
+  width: 260px;
   bottom: 20px;
   cursor: pointer;
   left: 30px;
@@ -198,12 +199,16 @@ html, body {
   font-weight: bold;
   color: #FFF;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .error-message {
   color: rgb(228, 14, 14);
   font-size: 12px;
-  margin: 0 0 0 10px;
+  margin-top: 5px;
+}
+.diff {
+  margin-top: -5px;
 }
 .results {
   width: 90%;

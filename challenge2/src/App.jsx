@@ -29,7 +29,7 @@ function App() {
     if (!amount) newErrors.amount = "This field is required";
     if (!years) newErrors.years = "This field is required";
     if (!rate) newErrors.rate = "This field is required";
-    if (!mortgageType) newErrors.mortgageType = "Please select a mortgage type";
+    if (!mortgageType) newErrors.mortgageType = "This field is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -76,7 +76,7 @@ function App() {
               <p className="titleInput">Mortgage Amount</p>
               <div className="divRelative">
                 <span className={`symbol ${errors.amount ? "error-span" : ""}`}>
-                  €
+                £
                 </span>
                 <input
                   type="text"
@@ -84,10 +84,10 @@ function App() {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
-              </div>
               {errors.amount && (
                 <p className="error-message">{errors.amount}</p>
               )}
+              </div>
 
               <div className="flex">
                 <div className="halfDiv">
@@ -108,10 +108,10 @@ function App() {
                       value={years}
                       onChange={(e) => setYears(e.target.value)}
                     />
-                  </div>
                   {errors.years && (
                     <p className="error-message">{errors.years}</p>
                   )}
+                  </div>
                 </div>
                 <div className="halfDiv">
                   <p className="titleInput">Interest Rate</p>
@@ -131,10 +131,10 @@ function App() {
                       value={rate}
                       onChange={(e) => setRate(e.target.value)}
                     />
-                  </div>
                   {errors.rate && (
                     <p className="error-message">{errors.rate}</p>
                   )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@ function App() {
                 Interest Only
               </label>
               {errors.mortgageType && (
-                <p className="error-message">{errors.mortgageType}</p>
+                <p className="diff error-message">{errors.mortgageType}</p>
               )}
             </div>
           </div>
