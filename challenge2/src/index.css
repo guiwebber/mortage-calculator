@@ -25,7 +25,7 @@ html, body {
 }
 .content {
   width: 800px;
-  height: 475px;
+  height: 525px;
   background-color: white;
   display: flex;
   border-radius: 20px;
@@ -59,6 +59,7 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  position: relative;
 }
 
 .left .titleNclear{
@@ -121,6 +122,7 @@ html, body {
 }
 .halfDiv {
   width: 47%;
+  
 }
 .divRelative .halfInput {
   padding: 5px;
@@ -171,8 +173,27 @@ html, body {
   border: none;
   width: 70%;
   margin-top: 30px;
+  position: absolute;
+  width: 300px;
+  bottom: 20px;
 }
 
 .btnCalc img {
   margin: 0 7px;
+}
+.error-input {
+  border: 2px solid rgb(228, 14, 14);
+  background-color: #ffe6e6;
+}
+
+.error-span {
+  background-color: rgb(228, 14, 14);
+  font-weight: bold;
+  color: #FFF;
+}
+
+.error-message {
+  color: rgb(228, 14, 14);
+  font-size: 12px;
+  margin: 0 0 0 10px;
 }

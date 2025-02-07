@@ -9,30 +9,35 @@ function App() {
   const [rate, setRate] = useState("");
   const [monthlyPayment, setMonthlyPayment] = useState(null);
   const [totalPayment, setTotalPayment] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [mortgageType, setMortgageType] = useState("");
+
   const formatNumber = (num) => {
-    // Limitar a 5 casas decimais
-    let formattedNum = num
-      .toFixed(5) // Limita a 5 casas decimais
-      .replace(".", ","); // Substitui o ponto por vírgula para o separador decimal
-    
-    // Adiciona o ponto como separador de milhar antes da vírgula
-    formattedNum = formattedNum.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  
-    return formattedNum;
+    let formattedNum = num.toFixed(2).replace(".", ",");
+    return formattedNum.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-  
-  
+
+  const validateFields = () => {
+    const newErrors = {};
+    if (!amount) newErrors.amount = "This field is required";
+    if (!years) newErrors.years = "This field is required";
+    if (!rate) newErrors.rate = "This field is required";
+    if (!mortgageType) newErrors.mortgageType = "Please select a mortgage type";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const calculateMortgage = () => {
+    if (!validateFields()) return;
+
     const P = parseFloat(amount);
     const r = parseFloat(rate) / 100 / 12;
     const n = parseInt(years) * 12;
 
     if (!P || !r || !n) return;
 
-    // Cálculo do pagamento mensal
-    const M = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    
-    // Total a pagar durante o período do empréstimo
+    const M = (P * (r * Math.pow(1 + r, n))) / (Math.pow(1 + r, n) - 1);
     const total = M * n;
 
     setMonthlyPayment(formatNumber(M));
@@ -45,43 +50,117 @@ function App() {
         <div className="left">
           <div className="titleNclear">
             <h2>Mortgage Calculator</h2>
-            <a href="#" onClick={() => { setAmount(""); setYears(""); setRate(""); setMonthlyPayment(null); setTotalPayment(null); }}>Clear all</a>
+            <a
+              href="#"
+              onClick={() => {
+                setAmount("");
+                setYears("");
+                setRate("");
+                setMonthlyPayment(null);
+                setTotalPayment(null);
+                setErrors({});
+              }}
+            >
+              Clear all
+            </a>
           </div>
-          <div>
-            <p className="titleInput">Mortgage Amount</p>
-            <div className="divRelative">
-              <span className="symbol">€</span>
-              <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
-            </div>
-            <div className="flex">
-              <div className="halfDiv">
-                <p className="titleInput">Mortgage Term</p>
-                <div className="divRelative">
-                  <span className="rightSymbol">years</span>
-                  <input type="text" className="halfInput" value={years} onChange={(e) => setYears(e.target.value)} />
+          <div className="testeDiv">
+            <div className="firstDivLeft">
+              <p className="titleInput">Mortgage Amount</p>
+              <div className="divRelative">
+                <span className={`symbol ${errors.amount ? "error-span" : ""}`}>
+                  €
+                </span>
+                <input
+                  type="text"
+                  className={errors.amount ? "error-input" : ""}
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+              {errors.amount && (
+                <p className="error-message">{errors.amount}</p>
+              )}
+
+              <div className="flex">
+                <div className="halfDiv">
+                  <p className="titleInput">Mortgage Term</p>
+                  <div className="divRelative">
+                    <span
+                      className={`rightSymbol ${
+                        errors.years ? "error-span" : ""
+                      }`}
+                    >
+                      years
+                    </span>
+                    <input
+                      type="text"
+                      className={`halfInput ${
+                        errors.years ? "error-input" : ""
+                      }`}
+                      value={years}
+                      onChange={(e) => setYears(e.target.value)}
+                    />
+                  </div>
+                  {errors.years && (
+                    <p className="error-message">{errors.years}</p>
+                  )}
+                </div>
+                <div className="halfDiv">
+                  <p className="titleInput">Interest Rate</p>
+                  <div className="divRelative">
+                    <span
+                      className={`rightSymbol ${
+                        errors.rate ? "error-span" : ""
+                      }`}
+                    >
+                      %
+                    </span>
+                    <input
+                      type="text"
+                      className={`halfInput ${
+                        errors.rate ? "error-input" : ""
+                      }`}
+                      value={rate}
+                      onChange={(e) => setRate(e.target.value)}
+                    />
+                  </div>
+                  {errors.rate && (
+                    <p className="error-message">{errors.rate}</p>
+                  )}
                 </div>
               </div>
-              <div className="halfDiv">
-                <p className="titleInput">Interest Rate</p>
-                <div className="divRelative">
-                  <span className="rightSymbol">%</span>
-                  <input type="text" className="halfInput" value={rate} onChange={(e) => setRate(e.target.value)} />
-                </div>
-              </div>
+            </div>
+            <div className="divSelect">
+              <p className="titleInput">Mortgage Type</p>
+              <label className="label">
+                <input
+                  type="radio"
+                  name="radioBtn"
+                  className="input"
+                  value="Repayment"
+                  onChange={(e) => setMortgageType(e.target.value)}
+                />{" "}
+                Repayment
+              </label>
+              <label className="label">
+                <input
+                  type="radio"
+                  name="radioBtn"
+                  className="input"
+                  value="Interest Only"
+                  onChange={(e) => setMortgageType(e.target.value)}
+                />{" "}
+                Interest Only
+              </label>
+              {errors.mortgageType && (
+                <p className="error-message">{errors.mortgageType}</p>
+              )}
             </div>
           </div>
-          <div className="divSelect">
-            <p className="titleInput">Mortgage Type</p>
-            <label className="label">
-              <input type="radio" name="radioBtn" className="input" /> Repayment
-            </label>
-            <label className="label">
-              <input type="radio" name="radioBtn" className="input" /> Interest Only
-            </label>
-            <button className="btnCalc" onClick={calculateMortgage}>
-              <img src={imgCalc} alt="" /> Calculate Repayments
-            </button>
-          </div>
+          <button className="btnCalc" onClick={calculateMortgage}>
+            <img src={imgCalc} alt="" /> Calculate Repayments
+          </button>
         </div>
         <div className="right">
           <div className="divImg">
@@ -97,7 +176,10 @@ function App() {
             ) : (
               <>
                 <h3>Results shown here</h3>
-                <p>Complete the form and click "calculate repayments" to see your results.</p>
+                <p>
+                  Complete the form and click "calculate repayments" to see your
+                  results.
+                </p>
               </>
             )}
           </div>
